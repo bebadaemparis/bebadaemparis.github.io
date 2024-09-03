@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Vendedores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Gerenciamento de Vendedores</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Voltar ao Menu Principal</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Adicionar Novo Vendedor</h2>
+            <form id="form-vendedor">
+                <label for="codigo">Código:</label>
+                <input type="text" id="codigo" name="codigo" required><br><br>
+
+                <label for="usuario">Usuário:</label>
+                <input type="text" id="usuario" name="usuario" required><br><br>
+
+                <button type="submit">Salvar Vendedor</button>
+            </form>
+        </section>
+        <section>
+            <h2>Listar Vendedores</h2>
+            <button id="listar-vendedores">Exibir Vendedores</button>
+            <ul id="lista-vendedores"></ul>
+        </section>
+    </main>
+    <script src="vendedores.js"></script>
+</body>
+</html>

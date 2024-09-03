@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial - Rede Sigma</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function verificarSenha(url) {
+            const senhaCorreta = "12345"; // Defina a senha correta aqui
+            const senha = prompt("Por favor, insira a senha para acessar esta área:");
+            if (senha === senhaCorreta) {
+                window.location.href = url;
+            } else {
+                alert("Senha incorreta! Acesso negado.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo à Rede Sigma</h1>
+    </header>
+    <main>
+        <section class="cards-container">
+            <div class="card">
+                <h2>Gerenciamento de Veículos</h2>
+                <p>Adicionar, listar, buscar e gerenciar veículos.</p>
+                <a href="#" onclick="verificarSenha('veiculos.html')" class="btn">Acessar</a>
+            </div>
+            <div class="card">
+                <h2>Gerenciamento de Clientes</h2>
+                <p>Adicionar, listar, buscar e gerenciar clientes.</p>
+                <a href="#" onclick="verificarSenha('clientes.html')" class="btn">Acessar</a>
+            </div>
+            <div class="card">
+                <h2>Gerenciamento de Vendedores</h2>
+                <p>Adicionar, listar, buscar e gerenciar vendedores.</p>
+                <a href="#" onclick="verificarSenha('vendedores.html')" class="btn">Acessar</a>
+            </div>
+            <div class="card">
+                <h2>Gerenciamento de Operações</h2>
+                <p>Registrar e gerenciar operações de compra e venda.</p>
+                <a href="operacoes.html" class="btn">Acessar</a>
+            </div>
+            <div class="card">
+                <h2>Gerenciamento de Pedidos</h2>
+                <p>Adicionar, listar e gerenciar pedidos.</p>
+                <a href="#" onclick="verificarSenha('pedidos.html')" class="btn">Acessar</a>
+            </div>
+            <div class="card">
+                <h2>Gerenciamento de Montadoras</h2>
+                <p>Adicionar, listar e gerenciar montadoras.</p>
+                <a href="#" onclick="verificarSenha('montadoras.html')" class="btn">Acessar</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
