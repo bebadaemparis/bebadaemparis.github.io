@@ -189,3 +189,11 @@ ul#lista-veiculos li p {
     font-size: 1rem;
     margin: 10px 0;
 }
+
+
+/* Adicionando um estilo para a foto do cliente */
+.foto-cliente {
+    width: 200px;  /* Defina o tamanho padrão desejado */
+    height: 150px; /* Certifique-se de que o tamanho corresponda ao tamanho da foto do carro */
+    object-fit: cover; /* Para garantir que a imagem se ajuste ao contêiner sem distorcer */
+}

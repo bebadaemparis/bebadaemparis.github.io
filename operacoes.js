@@ -24,14 +24,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         clientes.forEach(cliente => {
             const option = document.createElement('option');
-            option.value = cliente.cpf;
+            option.value = cliente.cpf; // Usamos CPF como valor
             option.textContent = `${cliente.nome} (${cliente.cpf})`;
             selectCliente.appendChild(option);
         });
 
         vendedores.forEach(vendedor => {
             const option = document.createElement('option');
-            option.value = vendedor.cpf;
+            option.value = vendedor.cpf; // Usamos CPF como valor
             option.textContent = `${vendedor.nome} (${vendedor.cpf})`;
             selectVendedor.appendChild(option);
         });
@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
 
         const venda = {
-            numero: document.getElementById('numero-venda').value, // Número da venda gerado automaticamente
+            numero: gerarNumeroVenda(), // Gera o número da venda automaticamente
             data: document.getElementById('data-venda').value,
-            cliente: document.getElementById('cliente-venda').value,
-            vendedor: document.getElementById('vendedor-venda').value,
-            veiculo: document.getElementById('veiculo-venda').value,
+            clienteCpf: document.getElementById('cliente-venda').value,
+            vendedorCpf: document.getElementById('vendedor-venda').value,
+            veiculoChassi: document.getElementById('veiculo-venda').value,
             valorEntrada: document.getElementById('valor-entrada').value,
             valorFinanciado: document.getElementById('valor-financiado').value,
             valorTotal: document.getElementById('valor-total').value
@@ -68,6 +68,9 @@ document.addEventListener('DOMContentLoaded', function () {
         listaVendasDiv.innerHTML = ''; // Limpar lista antes de adicionar as vendas
 
         const vendas = JSON.parse(localStorage.getItem('vendas')) || [];
+        const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+        const carros = JSON.parse(localStorage.getItem('veiculos')) || [];
+        const vendedores = JSON.parse(localStorage.getItem('vendedores')) || [];
 
         if (vendas.length === 0) {
             listaVendasDiv.innerHTML = '<p>Nenhuma venda registrada.</p>';
@@ -75,17 +78,19 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         vendas.forEach(function (venda, index) {
-            const
+            const cliente = clientes.find(c => c.cpf === venda.clienteCpf) || { nome: 'Desconhecido', cpf: 'Desconhecido' };
+            const vendedor = vendedores.find(v => v.cpf === venda.vendedorCpf) || { nome: 'Desconhecido', cpf: 'Desconhecido' };
+            const carro = carros.find(c => c.chassi === venda.veiculoChassi) || { marca: 'Desconhecido', modelo: 'Desconhecido', placa: 'Desconhecida' };
 
-            vendaDiv = document.createElement('div');
+            const vendaDiv = document.createElement('div');
             vendaDiv.classList.add('venda-item');
 
             vendaDiv.innerHTML = `
                 <h3>Venda ${venda.numero}</h3>
                 <p><strong>Data:</strong> ${venda.data}</p>
-                <p><strong>Cliente:</strong> ${venda.cliente}</p>
-                <p><strong>Vendedor:</strong> ${venda.vendedor}</p>
-                <p><strong>Veículo:</strong> ${venda.veiculo}</p>
+                <p><strong>Cliente:</strong> ${cliente.nome} (${cliente.cpf})</p>
+                <p><strong>Vendedor:</strong> ${vendedor.nome} (${vendedor.cpf})</p>
+                <p><strong>Veículo:</strong> ${carro.marca} ${carro.modelo} (${carro.placa})</p>
                 <p><strong>Valor da Entrada:</strong> ${venda.valorEntrada}</p>
                 <p><strong>Valor Financiado:</strong> ${venda.valorFinanciado}</p>
                 <p><strong>Valor Total:</strong> ${venda.valorTotal}</p>
@@ -111,9 +116,14 @@ document.addEventListener('DOMContentLoaded', function () {
         printWindow.document.write('<h2>Detalhes da Venda</h2>');
         printWindow.document.write(`<p><strong>Número da Venda:</strong> ${venda.numero}</p>`);
         printWindow.document.write(`<p><strong>Data:</strong> ${venda.data}</p>`);
-        printWindow.document.write(`<p><strong>Cliente:</strong> ${venda.cliente}</p>`);
-        printWindow.document.write(`<p><strong>Vendedor:</strong> ${venda.vendedor}</p>`);
-        printWindow.document.write(`<p><strong>Veículo:</strong> ${venda.veiculo}</p>`);
+        
+        const cliente = JSON.parse(localStorage.getItem('clientes')).find(c => c.cpf === venda.clienteCpf) || { nome: 'Desconhecido', cpf: 'Desconhecido' };
+        const vendedor = JSON.parse(localStorage.getItem('vendedores')).find(v => v.cpf === venda.vendedorCpf) || { nome: 'Desconhecido', cpf: 'Desconhecido' };
+        const carro = JSON.parse(localStorage.getItem('veiculos')).find(c => c.chassi === venda.veiculoChassi) || { marca: 'Desconhecido', modelo: 'Desconhecido', placa: 'Desconhecida' };
+        
+        printWindow.document.write(`<p><strong>Cliente:</strong> ${cliente.nome} (${cliente.cpf})</p>`);
+        printWindow.document.write(`<p><strong>Vendedor:</strong> ${vendedor.nome} (${vendedor.cpf})</p>`);
+        printWindow.document.write(`<p><strong>Veículo:</strong> ${carro.marca} ${carro.modelo} (${carro.placa})</p>`);
         printWindow.document.write(`<p><strong>Valor da Entrada:</strong> ${venda.valorEntrada}</p>`);
         printWindow.document.write(`<p><strong>Valor Financiado:</strong> ${venda.valorFinanciado}</p>`);
         printWindow.document.write(`<p><strong>Valor Total:</strong> ${venda.valorTotal}</p>`);
@@ -126,4 +136,3 @@ document.addEventListener('DOMContentLoaded', function () {
     popularSelects();
     document.getElementById('numero-venda').value = gerarNumeroVenda(); // Definir o número da venda no campo
 });
-
